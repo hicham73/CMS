@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EY.CMS.Plugins")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f199e872bd84a721162247949886d5dda223c374")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef5cff05fe727d7876d9cdc4f570f10e9b83b8b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("EY.CMS.Plugins")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EY.CMS.Plugins")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

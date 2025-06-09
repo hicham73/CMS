@@ -4700,11 +4700,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\QM747UT\\source\\repos\\WFD Repo\\Plugins\\EY.CMS.Plugins.csproj",
+      "projectUniqueName": "C:\\Users\\QM747UT\\source\\repos\\CMS\\Plugins\\EY.CMS.Plugins.csproj",
       "projectName": "EY.CMS.Plugins",
-      "projectPath": "C:\\Users\\QM747UT\\source\\repos\\WFD Repo\\Plugins\\EY.CMS.Plugins.csproj",
+      "projectPath": "C:\\Users\\QM747UT\\source\\repos\\CMS\\Plugins\\EY.CMS.Plugins.csproj",
       "packagesPath": "C:\\Users\\QM747UT\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\QM747UT\\source\\repos\\WFD Repo\\Plugins\\obj\\",
+      "outputPath": "C:\\Users\\QM747UT\\source\\repos\\CMS\\Plugins\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
