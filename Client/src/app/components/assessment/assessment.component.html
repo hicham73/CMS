@@ -1,0 +1,156 @@
+<div class="assessment-container">
+    <!-- Loading indicator -->
+    <div class="loading-overlay" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Error message -->
+    <div class="error-message" *ngIf="error">
+        <p>{{ error }}</p>
+        <button (click)="error = ''">Dismiss</button>
+    </div>
+
+    <!-- Assessment content -->
+    <div class="assessment-content" *ngIf="template">
+        <div class="assessment-header">
+            <h2>{{ template.title }}</h2>
+            <p *ngIf="template.description">{{ template.description }}</p>
+        </div>
+        <div class="template-meta">
+            <span>Version: {{ template.version || 'N/A' }}</span>
+            <span>Type: {{ template.type || 'Standard' }}</span>
+        </div>
+    </div>
+    
+    <!-- No template available -->
+    <div class="no-templates" *ngIf="!template && !loading && !error">
+        <h3>Loading Assessment...</h3>
+        <p>Please wait while we prepare your assessment.</p>
+    </div>
+
+    <!-- Assessment in progress -->
+    <ng-container *ngIf="template && !isCompleted">
+        <div class="group-container" *ngIf="currentGroup">
+            <div class="group-header">
+                <h3>
+                    {{ currentGroup.title }}
+                    <span class="progress">Group {{ ((currentGroupIndex$ | async) || 0) + 1 }} of {{ totalGroups }}</span>
+                </h3>
+            </div>
+
+            <div class="questions-list">
+                <div class="question-container" *ngFor="let question of currentGroup.questions">
+                    <p class="question-text">{{ question.text }}</p>
+
+                    <!-- Text input -->
+                    <ng-container *ngIf="question.type === 'text'">
+                        <textarea [(ngModel)]="answers[question.id]" [placeholder]="'Enter your answer here...'" [required]="question.required"></textarea>
+                    </ng-container>
+
+                    <!-- Single choice -->
+                    <ng-container *ngIf="question.type === 'single-choice'">
+                        <div class="radio-group">
+                            <label *ngFor="let option of question.options">
+                                <input type="radio" [name]="question.id" [(ngModel)]="answers[question.id]" [value]="option" [required]="question.required">
+                                {{ option }}
+                            </label>
+                        </div>
+                    </ng-container>
+
+                    <!-- Multiple choice -->
+                    <ng-container *ngIf="question.type === 'multiple-choice'">
+                        <div class="checkbox-group">
+                            <label *ngFor="let option of question.options">
+                                <input type="checkbox" [(ngModel)]="answers[question.id][option]">
+                                {{ option }}
+                            </label>
+                        </div>
+                    </ng-container>
+
+                    <!-- Date input -->
+                    <ng-container *ngIf="question.type === 'date'">
+                        <input type="date" [(ngModel)]="answers[question.id]" [required]="question.required">
+                    </ng-container>
+
+                    <!-- Date range input -->
+                    <ng-container *ngIf="question.type === 'date-range'">
+                        <div class="date-range">
+                            <label>Start Date
+                                <input type="date" [(ngModel)]="answers[question.id].start" [required]="question.required">
+                            </label>
+                            <label>End Date
+                                <input type="date" [(ngModel)]="answers[question.id].end" [required]="question.required">
+                            </label>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button (click)="onPrevious()" [disabled]="(currentGroupIndex$ | async) === 0">Previous</button>
+                <button (click)="onSubmitGroup()" [disabled]="!isCurrentGroupValid()">
+                    {{ (currentGroupIndex$ | async) === totalGroups - 1 ? 'Complete' : 'Next' }}
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- Assessment completed - Summary view -->
+    <ng-container *ngIf="template && isCompleted">
+        <div class="completion-message">
+            <h3>Assessment Completed</h3>
+            <p>Thank you for completing the assessment. Here's a summary of your responses:</p>
+        </div>
+
+        <div class="report-container">
+            <table class="answers-table">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Question</th>
+                        <th>Your Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let group of template?.groups || []">
+                        <tr *ngFor="let question of group?.questions || []" class="answer-row">
+                            <td class="section-cell">{{ group?.title || '' }}</td>
+                            <td class="question-cell">{{ question?.text || '' }}</td>
+                            <td class="answer-cell">
+                                <ng-container [ngSwitch]="question?.type || ''">
+                                    <!-- Text answer -->
+                                    <span *ngSwitchCase="'text'">{{ question?.id && answers[question.id] || '' }}</span>
+                                    
+                                    <!-- Single choice answer -->
+                                    <span *ngSwitchCase="'single-choice'">{{ question?.id && answers[question.id] || '' }}</span>
+                                    
+                                    <!-- Multiple choice answer -->
+                                    <span *ngSwitchCase="'multiple-choice'">
+                                        {{ question?.id && getSelectedOptions(answers[question.id]) || '' }}
+                                    </span>
+                                    
+                                    <!-- Date answer -->
+                                    <span *ngSwitchCase="'date'">{{ question?.id && (answers[question.id] | date:'mediumDate') || '' }}</span>
+                                    
+                                    <!-- Date range answer -->
+                                    <span *ngSwitchCase="'date-range'">
+                                        {{ question?.id && answers[question.id]?.start ? (answers[question.id].start | date:'mediumDate') : '' }} - {{ question?.id && answers[question.id]?.end ? (answers[question.id].end | date:'mediumDate') : '' }}
+                                    </span>
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+            
+            <div class="summary-actions">
+                <button (click)="resetAssessment()" class="reset-button">Start Over</button>
+                <button (click)="submitAssessment()" class="submit-button" [disabled]="submitting">Submit Assessment</button>
+            </div>
+            <div class="submission-status" *ngIf="submissionMessage">
+                <p [ngClass]="{'success': submissionSuccess, 'error': !submissionSuccess}">{{ submissionMessage }}</p>
+            </div>
+        </div>
+    </ng-container>
+</div>

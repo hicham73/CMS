@@ -1,0 +1,186 @@
+.career-path-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .career-path-track {
+    margin-bottom: 2rem;
+    
+    .steps-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 20px 0;
+      
+      .step {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex: 1;
+        
+        .step-indicator {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: bold;
+          color: #666;
+          border: 2px solid #ddd;
+          transition: all 0.3s ease;
+          z-index: 2;
+          
+          .checkmark {
+            color: #4CAF50;
+            font-size: 1.2rem;
+          }
+        }
+        
+        .step-content {
+          margin-left: 1rem;
+          
+          h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+          }
+          
+          p {
+            margin: 0.5rem 0 0;
+            font-size: 0.9rem;
+            color: #666;
+          }
+        }
+        
+        .step-connector {
+          position: absolute;
+          left: 40px;
+          right: 0;
+          height: 2px;
+          background: #ddd;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 1;
+        }
+        
+        &.active {
+          .step-indicator {
+            background: #2196F3;
+            border-color: #2196F3;
+            color: white;
+          }
+          
+          .step-content {
+            h3 {
+              color: #2196F3;
+            }
+          }
+        }
+        
+        &.completed {
+          .step-indicator {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            color: white;
+          }
+          
+          .step-connector {
+            background: #4CAF50;
+          }
+        }
+        
+        &:hover:not(.active):not(.completed) {
+          .step-indicator {
+            background: #e3f2fd;
+            border-color: #2196F3;
+          }
+        }
+      }
+    }
+  }
+  
+  .active-step-details {
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
+    h2 {
+      margin: 0 0 1.5rem;
+      color: #2196F3;
+    }
+    
+    .substeps-container {
+      display: grid;
+      gap: 1rem;
+      
+      .substep {
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem;
+        border-radius: 6px;
+        background: #f8f9fa;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        .substep-checkbox {
+          width: 24px;
+          height: 24px;
+          border-radius: 4px;
+          border: 2px solid #ddd;
+          margin-right: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          .checkmark {
+            color: #4CAF50;
+            font-size: 1rem;
+          }
+        }
+        
+        .substep-content {
+          flex: 1;
+          
+          h4 {
+            margin: 0;
+            color: #333;
+          }
+          
+          p {
+            margin: 0.5rem 0 0;
+            color: #666;
+            font-size: 0.9rem;
+          }
+        }
+        
+        &.completed {
+          background: #e8f5e9;
+          
+          .substep-checkbox {
+            background: #4CAF50;
+            border-color: #4CAF50;
+            color: white;
+          }
+          
+          .substep-content {
+            h4 {
+              color: #2e7d32;
+            }
+          }
+        }
+        
+        &:hover:not(.completed) {
+          background: #e3f2fd;
+          
+          .substep-checkbox {
+            border-color: #2196F3;
+          }
+        }
+      }
+    }
+  }
+}

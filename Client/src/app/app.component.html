@@ -1,0 +1,8 @@
+<div class="app-container">
+    <div class="main-content">
+        <!-- Conditionally render components based on query parameter -->
+        <app-assessment *ngIf="activeComponent === 'assessment'"></app-assessment>
+        <app-career-path *ngIf="activeComponent === 'career-path'"></app-career-path>
+        <app-staff-schedule *ngIf="activeComponent === 'staff-schedule'"></app-staff-schedule>
+    </div>
+</div>

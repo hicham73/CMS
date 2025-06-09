@@ -1,0 +1,744 @@
+// Professional color palette with increased contrast
+$primary: #003366;         // Deeper blue for better contrast
+$primary-dark: #00264d;    // Very dark blue for hover states
+$primary-light: #0055a4;   // Brighter blue for highlights
+$secondary: #333333;       // Darker gray for better contrast
+$background: #f0f0f0;      // Neutral light gray background
+$surface: #ffffff;         // Pure white cards/surfaces
+$surface-secondary: #e6e6e6; // Medium gray for secondary surfaces
+$surface-variant: #f5f5f5;  // Light gray variant for subtle highlights
+$border: #b3b3b3;          // Medium gray border for better visibility
+$border-light: #d9d9d9;    // Light gray border with more contrast
+$text: #1a1a1a;            // Near-black text for maximum readability
+$text-secondary: #404040;  // Dark gray for secondary text
+$text-light: #666666;      // Medium gray for light text with better contrast
+$accent: #0066cc;          // Brighter blue accent for better visibility
+$success: #006600;         // Darker green for better contrast
+$warning: #cc6600;         // Darker orange for better contrast
+$error: #cc0000;           // Darker red for better contrast
+$primary-color: #0078d4;
+$secondary-color: #2b88d8;
+$text-color: #323130;
+$light-gray: #f3f2f1;
+$medium-gray: #edebe9;
+$dark-gray: #a19f9d;
+$error-color: #a4262c;
+$success-color: #107c10;
+$disabled: #cccccc;
+$container-width: 800px;
+$border-radius: 4px;
+$box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+$overlay-bg: rgba(255, 255, 255, 0.85);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+// Modern Power Platform shadows
+$shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+// Border radius
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 8px;
+$radius-pill: 9999px;  // Fully rounded corners for pill shapes
+
+// Typography scale
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-md: 1.0625rem;  // 17px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-xl: 1.25rem;    // 20px
+
+// Spacing scale (Power Platform uses 4px base unit)
+$spacing-xxs: 0.125rem;    // 2px
+$spacing-xs: 0.25rem;      // 4px
+$spacing-sm: 0.5rem;       // 8px
+$spacing-base: 0.75rem;    // 12px
+$spacing-md: 1rem;         // 16px
+$spacing-lg: 1.5rem;       // 24px
+$spacing-xl: 2rem;         // 32px
+
+.assessment-container {
+    max-width: $container-width;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: $text-color;
+    position: relative;
+    background: $surface;
+    color: $text;
+    font-size: $font-size-sm;
+    line-height: 1.4;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+    h2 {
+        color: $primary;
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin-bottom: $spacing-base;
+        letter-spacing: -0.01em;
+    }
+
+    h3 {
+        color: $primary;
+        font-size: $font-size-lg;
+        font-weight: 600;
+        margin-bottom: $spacing-sm;
+        letter-spacing: -0.01em;
+    }
+
+    .description {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-md;
+        line-height: 1.5;
+    }
+}
+
+.group-container {
+    background: $surface;
+    border: 2px solid $border;
+    border-radius: 4px;
+    padding: $spacing-lg;
+    margin-bottom: $spacing-lg;
+    box-shadow: $shadow-md;
+
+    .group-header {
+        margin-bottom: $spacing-md;
+
+        .group-description {
+            color: $text-secondary;
+            font-size: $font-size-sm;
+            margin: $spacing-sm 0;
+            line-height: 1.5;
+        }
+
+        .progress {
+            display: inline-flex;
+            align-items: center;
+            color: $primary;
+            font-size: $font-size-xs;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba($primary, 0.1), rgba($primary-light, 0.1));
+            padding: $spacing-xs $spacing-sm;
+            border-radius: 16px;
+            margin-top: $spacing-sm;
+            border: 1px solid rgba($primary, 0.2);
+        }
+    }
+}
+
+.questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+
+    .question-container {
+        padding: $spacing-md;
+        background: white;
+        border-radius: 4px;
+        border: 1px solid $border-light;
+        transition: all 0.2s ease;
+
+        &:hover {
+            box-shadow: $shadow-sm;
+            border-color: $border;
+        }
+
+        .question-text {
+            color: $text;
+            font-size: $font-size-base;
+            font-weight: 700;
+            margin-bottom: $spacing-base;
+            line-height: 1.4;
+        }
+
+        textarea {
+            width: 100%;
+            padding: $spacing-base;
+            border: 1px solid $border;
+            border-radius: 4px;
+            font-size: $font-size-sm;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 80px;
+            resize: vertical;
+            background-color: $surface;
+            transition: all 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $primary;
+                background-color: $surface;
+                box-shadow: 0 0 0 2px rgba($primary, 0.2);
+            }
+
+            &::placeholder {
+                color: $text-light;
+            }
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: $spacing-base;
+            border: 1px solid $border;
+            border-radius: 4px;
+            font-size: $font-size-sm;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: $surface;
+            transition: all 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $primary;
+                box-shadow: 0 0 0 2px rgba($primary, 0.2);
+            }
+        }
+    }
+}
+
+.radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+        color: $text;
+        font-size: $font-size-sm;
+        cursor: pointer;
+        padding: $spacing-xs;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            color: $primary;
+            background-color: rgba($primary, 0.05);
+        }
+
+        input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            
+            &[type="radio"] {
+                accent-color: $primary;
+            }
+            
+            &[type="checkbox"] {
+                accent-color: $primary;
+            }
+        }
+    }
+}
+
+.date-range {
+    display: flex;
+    gap: $spacing-md;
+
+    label {
+        flex: 1;
+        color: $text;
+        font-size: $font-size-sm;
+        font-weight: 600;
+
+        input {
+            width: 100%;
+            padding: $spacing-base;
+            border: 1px solid $border;
+            border-radius: 4px;
+            font-size: $font-size-sm;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: $surface;
+            margin-top: $spacing-xs;
+            transition: all 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: $primary;
+                box-shadow: 0 0 0 2px rgba($primary, 0.2);
+            }
+        }
+    }
+}
+
+.navigation-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+
+    button {
+        padding: $spacing-xs $spacing-md;
+        border-radius: $radius-sm;
+        font-weight: 500;
+        font-size: $font-size-sm;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.secondary {
+            background: $surface;
+            color: $primary;
+            border: 1px solid $primary;
+
+            &:hover {
+                background: rgba($primary, 0.05);
+            }
+
+            &:active {
+                background: rgba($primary, 0.1);
+            }
+        }
+
+        &.primary {
+            background: $primary;
+            color: white;
+            border: none;
+
+            &:hover {
+                background: darken($primary, 5%);
+            }
+
+            &:active {
+                background: darken($primary, 10%);
+            }
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: $disabled !important;
+            color: $text-light !important;
+            border: none !important;
+        }
+    }
+}
+
+// Loading overlay
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    border-radius: $radius-sm;
+    
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid $border-light;
+        border-top: 5px solid $primary;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    p {
+        margin-top: $spacing-md;
+        font-size: $font-size-md;
+        font-weight: 500;
+        color: $text;
+    }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+// Error message
+.error-message {
+    background-color: rgba($error, 0.1);
+    border-left: 4px solid $error;
+    padding: $spacing-md;
+    margin-bottom: $spacing-lg;
+    border-radius: $radius-sm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    p {
+        margin: 0;
+        color: $error;
+        font-weight: 500;
+    }
+    
+    button {
+        background-color: transparent;
+        border: 1px solid $error;
+        color: $error;
+        padding: $spacing-xs $spacing-sm;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        font-size: $font-size-sm;
+        
+        &:hover {
+            background-color: $error;
+            color: white;
+        }
+    }
+}
+
+// Template selection
+.template-selection {
+    margin-bottom: $spacing-xl;
+    
+    h3 {
+        margin-bottom: $spacing-lg;
+        font-size: $font-size-lg;
+        color: $text;
+        font-weight: 600;
+    }
+    
+    .template-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: $spacing-md;
+        margin-bottom: $spacing-lg;
+    }
+    
+    .template-card {
+        background-color: $surface;
+        border: 1px solid $border-light;
+        border-radius: $radius-sm;
+        padding: $spacing-md;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            box-shadow: $shadow-md;
+            transform: translateY(-2px);
+        }
+        
+        &.selected {
+            border-color: $primary;
+            box-shadow: 0 0 0 2px rgba($primary, 0.3);
+        }
+        
+        h4 {
+            margin-top: 0;
+            margin-bottom: $spacing-sm;
+            color: $primary;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: $spacing-md;
+            color: $text;
+            font-size: $font-size-sm;
+        }
+        
+        .template-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: $spacing-xs;
+            font-size: $font-size-xs;
+            color: $text-light;
+            
+            span {
+                background-color: $surface-variant;
+                padding: $spacing-xxs $spacing-xs;
+                border-radius: $radius-pill;
+            }
+        }
+    }
+    
+    .template-actions {
+        display: flex;
+        justify-content: center;
+        
+        button {
+            padding: $spacing-xs $spacing-lg;
+            background-color: $primary;
+            color: white;
+            border: none;
+            border-radius: $radius-sm;
+            cursor: pointer;
+            font-size: $font-size-md;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            
+            &:hover {
+                background-color: darken($primary, 5%);
+            }
+            
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                background: $disabled;
+                color: $text-light;
+            }
+        }
+    }
+}
+
+// No templates message
+.no-templates {
+    text-align: center;
+    padding: $spacing-xl $spacing-lg;
+    background-color: $surface-variant;
+    border-radius: $radius-sm;
+    margin-bottom: $spacing-xl;
+    
+    h3 {
+        margin-top: 0;
+        color: $text;
+        font-weight: 600;
+    }
+    
+    p {
+        margin-bottom: $spacing-lg;
+        color: $text-light;
+    }
+    
+    button {
+        padding: $spacing-xs $spacing-md;
+        background-color: $primary;
+        color: white;
+        border: none;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        
+        &:hover {
+            background-color: darken($primary, 5%);
+        }
+    }
+}
+
+// Existing assessments
+.existing-assessments {
+    margin-bottom: $spacing-xl;
+    
+    h3 {
+        margin-bottom: $spacing-md;
+        font-size: $font-size-lg;
+        color: $text;
+        font-weight: 600;
+    }
+    
+    .assessment-list {
+        overflow-x: auto;
+    }
+    
+    .assessments-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: $shadow-sm;
+        border-radius: $radius-sm;
+        overflow: hidden;
+        
+        th, td {
+            padding: $spacing-sm $spacing-md;
+            text-align: left;
+        }
+        
+        th {
+            background-color: $surface-variant;
+            color: $text;
+            font-weight: 600;
+            font-size: $font-size-sm;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba($surface-variant, 0.3);
+        }
+        
+        tr:hover {
+            background-color: rgba($primary, 0.05);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: $spacing-xxs $spacing-xs;
+            border-radius: $radius-pill;
+            font-size: $font-size-xs;
+            font-weight: 500;
+            
+            &.completed {
+                background-color: rgba($success, 0.1);
+                color: $success;
+            }
+            
+            &.in-progress {
+                background-color: rgba($warning, 0.1);
+                color: $warning;
+            }
+        }
+        
+        .action-button {
+            padding: $spacing-xs $spacing-sm;
+            background-color: $primary;
+            color: white;
+            border: none;
+            border-radius: $radius-sm;
+            cursor: pointer;
+            font-size: $font-size-xs;
+            transition: all 0.2s ease;
+            
+            &:hover {
+                background-color: darken($primary, 5%);
+                transform: translateY(-1px);
+            }
+        }
+    }
+}
+
+.completion-message {
+    text-align: center;
+    margin: $spacing-xl 0;
+    padding: $spacing-lg;
+    background: linear-gradient(135deg, rgba($success, 0.15), rgba($primary, 0.1));
+    border-radius: 8px;
+    border: 2px solid rgba($success, 0.3);
+
+    h3 {
+        color: $primary;
+        font-size: $font-size-xl;
+        font-weight: 600;
+        margin-bottom: $spacing-sm;
+    }
+
+    p {
+        color: $text-secondary;
+        font-size: $font-size-sm;
+        margin-bottom: $spacing-sm;
+        line-height: 1.5;
+    }
+}
+
+.report-container {
+    margin-top: $spacing-xl;
+    background: $surface;
+    border: 1px solid $border-light;
+    border-radius: 8px;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+
+    .answers-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: $font-size-sm;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        
+        th, td {
+            text-align: left;
+            padding: $spacing-base $spacing-md;
+            border-bottom: 1px solid $border-light;
+        }
+
+        th {
+            background: $primary;
+            color: white;
+            font-size: $font-size-base;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 2px solid $primary-dark;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+
+            &:nth-child(even) {
+                background-color: rgba($primary, 0.02);
+            }
+
+            &:hover {
+                background-color: rgba($primary, 0.05);
+            }
+        }
+
+        .section-cell {
+            color: $primary;
+            font-size: $font-size-sm;
+            font-weight: 600;
+            white-space: nowrap;
+            background: linear-gradient(90deg, rgba($primary, 0.05), transparent);
+            border-right: 2px solid rgba($primary, 0.1);
+        }
+
+        .question-cell {
+            color: $text;
+            font-size: $font-size-sm;
+            font-weight: 500;
+            min-width: 200px;
+            max-width: 500px;
+            line-height: 1.4;
+        }
+
+        .answer-cell {
+            color: $text-secondary;
+            font-size: $font-size-sm;
+            min-width: 150px;
+            
+            span {
+                display: inline-block;
+                padding: $spacing-xs $spacing-sm;
+                background: $surface-secondary;
+                border-radius: 4px;
+                line-height: 1.3;
+                border: 1px solid $border-light;
+            }
+        }
+    }
+}
+
+// Power Platform specific enhancements
+.power-platform-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+    background: linear-gradient(135deg, $primary, $primary-light);
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: 12px;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    
+    &::before {
+        content: "⚡";
+        font-size: $font-size-sm;
+    }
+}
+
+// Responsive design for Power Platform
+@media (max-width: 1400px) {
+    .assessment-container {
+        padding: $spacing-md;
+        margin: $spacing-sm;
+    }
+    
+    .navigation-buttons {
+        flex-direction: column;
+        
+        button {
+            width: 100%;
+        }
+    }
+    
+    .date-range {
+        flex-direction: column;
+    }
+    
+    .report-container {
+        .answers-table {
+            font-size: $font-size-xs;
+            
+            th, td {
+                padding: $spacing-sm;
+            }
+        }
+    }
+}

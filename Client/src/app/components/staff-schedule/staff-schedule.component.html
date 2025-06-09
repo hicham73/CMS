@@ -1,0 +1,79 @@
+<div class="staff-schedule-container">
+  <div class="compact-header">
+    <div class="week-selector">
+    <button class="week-nav-btn" (click)="previousWeek()">
+      <span class="nav-icon">&#9664;</span>
+    </button>
+    <div class="week-label">
+      <span>{{ weekLabel }}</span>
+      <button class="current-week-btn" (click)="goToCurrentWeek()">Current Week</button>
+    </div>
+    <button class="week-nav-btn" (click)="nextWeek()">
+      <span class="nav-icon">&#9654;</span>
+    </button>
+  </div>
+  <div class="selection-status">
+    <button class="btn-cancel" (click)="cancelSelection()" *ngIf="isSelecting">Cancel</button>
+    <span class="instructions" *ngIf="!isSelecting">Click to select time slot</span>
+    <span class="instructions" *ngIf="isSelecting">Click again to complete</span>
+  </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Left panel with calendar -->
+    <div class="calendar-panel">
+      <!-- Calendar header with days -->
+      <div class="calendar-header">
+        <div class="time-column-header">Time</div>
+        <div class="day-header" *ngFor="let day of days">{{ day }}</div>
+      </div>
+
+      <!-- Calendar grid -->
+      <div class="calendar-grid">
+        <!-- Time column -->
+        <div class="time-column">
+          <div class="time-cell" *ngFor="let hour of hours">
+            {{ formatTime(hour) }}
+          </div>
+        </div>
+
+        <!-- Day columns -->
+        <div class="day-column" *ngFor="let day of days">
+          <div class="time-cell" 
+               *ngFor="let hour of hours" 
+               [class.selected]="isInSelection(day, hour)"
+               [class.occupied]="isInTimeSlot(day, hour)"
+               [class.start-time]="selectionStart?.day === day && selectionStart?.time === hour"
+               (click)="startSelection(day, hour)">
+            <!-- Cell content -->
+            <ng-container *ngIf="isInTimeSlot(day, hour) as slot">
+              <div class="slot-info" *ngIf="hours.indexOf(hour) === hours.indexOf(slot.startTime)">
+                {{ getTimeRange(slot) }}
+                <button class="remove-btn" (click)="removeTimeSlot(slot.id); $event.stopPropagation()">
+                  ×
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel with scheduled time slots -->
+    <div class="slots-panel">
+      <h2>Scheduled Time Slots</h2>
+      
+      <div class="no-slots" *ngIf="getCurrentWeekTimeSlots().length === 0">
+        No time slots scheduled for this week.
+      </div>
+      
+      <div class="time-slots-list" *ngIf="getCurrentWeekTimeSlots().length > 0">
+        <div class="time-slot-item" *ngFor="let slot of getCurrentWeekTimeSlots()">
+          <div class="day-label">{{ slot.day }}</div>
+          <div class="time-range">{{ getTimeRange(slot) }}</div>
+          <button class="remove-btn" (click)="removeTimeSlot(slot.id)">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

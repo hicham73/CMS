@@ -1,0 +1,362 @@
+// Variables
+$primary-color: #0078d4; // Microsoft blue
+$hover-color: #106ebe;
+$light-bg: #f3f2f1;
+$border-color: #edebe9;
+$text-color: #323130;
+$selection-color: #deecf9;
+$occupied-color: #c7e0f4;
+$header-bg: #f8f8f8;
+
+:host {
+  display: block;
+  height: 100vh;
+  width: 100%;
+}
+
+.staff-schedule-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $text-color;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  font-size: 12px;
+  font-weight: 500;
+
+  .compact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    background-color: $light-bg;
+    margin-bottom: 10px;
+    border-bottom: 1px solid $border-color;
+    
+    .week-selector {
+      display: flex;
+      align-items: center;
+      
+      .week-nav-btn {
+        background-color: transparent;
+        border: 1px solid $border-color;
+        color: $primary-color;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        
+        &:hover {
+          background-color: rgba($primary-color, 0.1);
+        }
+        
+        .nav-icon {
+          font-size: 10px;
+        }
+      }
+      
+      .week-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 15px;
+        
+        span {
+          font-size: 13px;
+          font-weight: 700;
+          color: $text-color;
+          margin-bottom: 2px;
+        }
+        
+        .current-week-btn {
+          background-color: transparent;
+          border: none;
+          color: $primary-color;
+          font-size: 10px;
+          cursor: pointer;
+          padding: 1px 3px;
+          text-decoration: underline;
+          font-weight: 600;
+          
+          &:hover {
+            color: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+    
+    .selection-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      .btn-cancel {
+        background-color: transparent;
+        border: 1px solid #d13438;
+        color: #d13438;
+        padding: 3px 8px;
+        border-radius: 2px;
+        font-size: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        
+        &:hover {
+          background-color: #d13438;
+          color: white;
+        }
+      }
+      
+      .instructions {
+        font-size: 10px;
+        color: #605e5c;
+        font-style: italic;
+      }
+    }
+  }
+
+  .main-content {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+    overflow: hidden;
+
+    .calendar-panel {
+      flex: 1;
+      min-width: 0; // Prevent flex items from overflowing
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+
+      .calendar-header {
+        display: flex;
+        background-color: $header-bg;
+        border-bottom: 1px solid $border-color;
+        font-weight: 600;
+
+        .time-column-header {
+          width: 70px;
+          min-width: 70px;
+          padding: 5px;
+          text-align: center;
+          border-right: 1px solid $border-color;
+          font-size: 11px;
+          font-weight: 600;
+        }
+
+        .day-header {
+          flex: 1;
+          min-width: 90px;
+          padding: 5px;
+          text-align: center;
+          border-right: 1px solid $border-color;
+          font-size: 11px;
+          font-weight: 600;
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+      }
+
+      .calendar-grid {
+        display: flex;
+        border: 1px solid $border-color;
+        border-top: none;
+        flex: 1;
+        overflow: auto;
+
+        .time-column {
+          width: 70px;
+          min-width: 70px;
+          background-color: $light-bg;
+          border-right: 1px solid $border-color;
+
+          .time-cell {
+            height: 28px;
+            padding: 2px 5px;
+            border-bottom: 1px solid $border-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 500;
+          }
+        }
+
+        .day-column {
+          flex: 1;
+          min-width: 90px;
+          border-right: 1px solid $border-color;
+
+          &:last-child {
+            border-right: none;
+          }
+
+          .time-cell {
+            height: 28px;
+            border-bottom: 1px solid $border-color;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background-color: #f5f5f5;
+            }
+
+            &.selected {
+              background-color: $selection-color;
+            }
+
+            &.occupied {
+              background-color: $occupied-color;
+            }
+
+            &.start-time {
+              border-top: 2px solid $primary-color;
+            }
+
+            .slot-info {
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding: 0 5px;
+              font-size: 9px;
+              font-weight: 600;
+              background-color: $occupied-color;
+              z-index: 1;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+
+              .remove-btn {
+                background: none;
+                border: none;
+                color: #666;
+                font-size: 12px;
+                cursor: pointer;
+                padding: 0 5px;
+                visibility: hidden;
+
+                &:hover {
+                  color: #d13438;
+                }
+              }
+
+              &:hover .remove-btn {
+                visibility: visible;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .slots-panel {
+    width: 250px;
+    background-color: $light-bg;
+    padding: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: $primary-color;
+      font-weight: 700;
+    }
+
+    .no-slots {
+      color: #605e5c;
+      font-style: italic;
+      font-size: 11px;
+    }
+
+    .time-slots-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+      overflow-y: auto;
+
+      .time-slot-item {
+        background-color: white;
+        border: 1px solid $border-color;
+        border-left: 4px solid $primary-color;
+        padding: 8px;
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+
+        .day-label {
+          font-weight: 700;
+          margin-bottom: 3px;
+          font-size: 11px;
+        }
+
+        .time-range {
+          color: #605e5c;
+          margin-bottom: 6px;
+          font-size: 10px;
+          font-weight: 600;
+        }
+
+        .remove-btn {
+          align-self: flex-end;
+          background-color: transparent;
+          border: 1px solid #d13438;
+          color: #d13438;
+          padding: 3px 6px;
+          border-radius: 2px;
+          cursor: pointer;
+          font-size: 10px;
+          font-weight: 600;
+          transition: all 0.2s;
+
+          &:hover {
+            background-color: #d13438;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .staff-schedule-container {
+    padding: 10px;
+
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      h1 {
+        margin-bottom: 10px;
+      }
+    }
+
+    .main-content {
+      flex-direction: column;
+
+      .slots-panel {
+        width: 100%;
+        margin-top: 15px;
+      }
+    }
+  }
+}

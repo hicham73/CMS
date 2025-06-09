@@ -1,0 +1,34 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 300px;
+  height: 100%;
+  overflow: hidden;
+  border-right: 1px solid #dee2e6;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.main-content {
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  
+  // Remove padding when staff-schedule is active
+  app-staff-schedule {
+    width: 100%;
+    height: 100%;
+  }
+  
+  app-assessment, app-career-path {
+    padding: 1rem 1rem 1rem 0.5rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
+}

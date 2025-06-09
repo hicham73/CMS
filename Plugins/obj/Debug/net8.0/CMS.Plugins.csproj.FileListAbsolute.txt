@@ -1,0 +1,12 @@
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\bin\Debug\net8.0\CMS.Plugins.deps.json
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\bin\Debug\net8.0\CMS.Plugins.dll
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\bin\Debug\net8.0\CMS.Plugins.pdb
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.csproj.AssemblyReference.cache
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.AssemblyInfoInputs.cache
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.AssemblyInfo.cs
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.csproj.CoreCompileInputs.cache
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.dll
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\refint\CMS.Plugins.dll
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\CMS.Plugins.pdb
+C:\Users\QM747UT\source\repos\CMS-Prototype\ClassLibrary1\obj\Debug\net8.0\ref\CMS.Plugins.dll

@@ -1,0 +1,50 @@
+<div class="career-path-container">
+  <div class="career-path-track">
+    <div class="steps-container">
+      @for (step of steps; track step.id) {
+        <div class="step" 
+             [class.active]="step.isActive"
+             [class.completed]="step.isCompleted"
+             (click)="setActiveStep(step)">
+          <div class="step-indicator">
+            @if (step.isCompleted) {
+              <i class="checkmark">✓</i>
+            } @else {
+              {{ step.id }}
+            }
+          </div>
+          <div class="step-content">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.description }}</p>
+          </div>
+          @if (!isLastStep(step)) {
+            <div class="step-connector"></div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  @if (activeStep) {
+    <div class="active-step-details">
+      <h2>{{ activeStep.title }}</h2>
+      <div class="substeps-container">
+        @for (subStep of activeStep.subSteps; track subStep.id) {
+          <div class="substep" 
+               [class.completed]="subStep.isCompleted"
+               (click)="toggleSubStep(activeStep.id, subStep.id, !subStep.isCompleted)">
+            <div class="substep-checkbox">
+              @if (subStep.isCompleted) {
+                <i class="checkmark">✓</i>
+              }
+            </div>
+            <div class="substep-content">
+              <h4>{{ subStep.title }}</h4>
+              <p>{{ subStep.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

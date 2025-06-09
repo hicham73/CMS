@@ -1,0 +1,33 @@
+<div class="schema-sidebar">
+  <div class="sidebar-header">
+    <h3>Schema Entities</h3>
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearch()" 
+        placeholder="Filter entities..." 
+        class="search-input"
+      />
+      <button *ngIf="searchTerm" (click)="clearSearch()" class="clear-button">
+        ×
+      </button>
+    </div>
+  </div>
+  
+  <div class="entity-list">
+    <ng-container *ngIf="(entities$ | async) as entities">
+      <div *ngIf="entities.length === 0" class="no-results">
+        No entities found
+      </div>
+      <div 
+        *ngFor="let entity of entities" 
+        class="entity-item"
+        (click)="selectEntity(entity)"
+      >
+        <div class="entity-name">{{ entity.name }}</div>
+        <div class="entity-description">{{ entity.description }}</div>
+      </div>
+    </ng-container>
+  </div>
+</div>
