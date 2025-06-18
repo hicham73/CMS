@@ -1,0 +1,66 @@
+<div class="job-management-container">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h2>Job Posting Management</h2>
+      <button class="btn btn-primary">Add New Job</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Job Title</th>
+              <th>Company</th>
+              <th>Location</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let job of jobs">
+              <td>{{ job.id }}</td>
+              <td>{{ job.title }}</td>
+              <td>{{ job.company }}</td>
+              <td>{{ job.location }}</td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'bg-success': job.status === 'active',
+                  'bg-warning': job.status === 'pending',
+                  'bg-danger': job.status === 'inactive'
+                }">
+                  {{ job.status | titlecase }}
+                </span>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger">Delete</button>
+                  <button class="btn btn-sm btn-outline-secondary">View</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div *ngIf="jobs.length === 0" class="text-center p-4">
+        <p>No job postings found.</p>
+      </div>
+      
+      <nav aria-label="Page navigation" *ngIf="jobs.length > 0">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

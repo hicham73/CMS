@@ -1,0 +1,98 @@
+<div class="profile-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Company Profile</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="companyName">Company Name</label>
+              <input 
+                type="text" 
+                id="companyName" 
+                formControlName="companyName" 
+                class="form-control"
+                [ngClass]="{'is-invalid': profileForm.get('companyName')?.invalid && profileForm.get('companyName')?.touched}">
+              <div *ngIf="profileForm.get('companyName')?.invalid && profileForm.get('companyName')?.touched" class="invalid-feedback">
+                Company name is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="industry">Industry</label>
+              <input 
+                type="text" 
+                id="industry" 
+                formControlName="industry" 
+                class="form-control"
+                [ngClass]="{'is-invalid': profileForm.get('industry')?.invalid && profileForm.get('industry')?.touched}">
+              <div *ngIf="profileForm.get('industry')?.invalid && profileForm.get('industry')?.touched" class="invalid-feedback">
+                Industry is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="mt-4">Contact Information</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input 
+                type="text" 
+                id="firstName" 
+                formControlName="firstName" 
+                class="form-control"
+                [ngClass]="{'is-invalid': profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched}">
+              <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="invalid-feedback">
+                First name is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input 
+                type="text" 
+                id="lastName" 
+                formControlName="lastName" 
+                class="form-control"
+                [ngClass]="{'is-invalid': profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched}">
+              <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="invalid-feedback">
+                Last name is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            class="form-control"
+            [ngClass]="{'is-invalid': profileForm.get('email')?.invalid && profileForm.get('email')?.touched}">
+          <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="invalid-feedback">
+            <span *ngIf="profileForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="profileForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+          </div>
+        </div>
+
+        <div class="form-group mt-4">
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">
+              Save Changes
+            </button>
+            <div *ngIf="employer.verified" class="badge bg-success p-2">
+              <i class="bi bi-check-circle me-1"></i> Verified Employer
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

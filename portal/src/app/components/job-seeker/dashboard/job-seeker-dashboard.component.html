@@ -1,0 +1,84 @@
+<div class="dashboard-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Job Seeker Dashboard</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="stat-card">
+            <h3>Saved Jobs</h3>
+            <p class="stat-number">{{ stats.savedJobs }}</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <h3>Applications</h3>
+            <p class="stat-number">{{ stats.applications }}</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <h3>Employer Views</h3>
+            <p class="stat-number">{{ stats.viewedByEmployers }}</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card">
+            <h3>Matching Jobs</h3>
+            <p class="stat-number">{{ stats.matchingJobs }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-4">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3>Recent Job Matches</h3>
+              <a routerLink="/job-seeker/jobs" class="btn btn-sm btn-outline-primary">View All Jobs</a>
+            </div>
+            <div class="card-body">
+              <div class="list-group">
+                <a *ngFor="let job of recentJobs" href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ job.title }}</h5>
+                    <small>{{ job.postedDate | date:'shortDate' }}</small>
+                  </div>
+                  <p class="mb-1">{{ job.company }}</p>
+                  <small>{{ job.location }}</small>
+                </a>
+              </div>
+              <div *ngIf="recentJobs.length === 0" class="text-center p-4">
+                <p>No job matches to display.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <h3>Quick Actions</h3>
+            </div>
+            <div class="card-body">
+              <div class="list-group">
+                <a routerLink="/job-seeker/jobs" class="list-group-item list-group-item-action">
+                  <i class="bi bi-search me-2"></i> Search Jobs
+                </a>
+                <a routerLink="/job-seeker/resumes" class="list-group-item list-group-item-action">
+                  <i class="bi bi-file-text me-2"></i> Manage Resumes
+                </a>
+                <a routerLink="/job-seeker/applications" class="list-group-item list-group-item-action">
+                  <i class="bi bi-briefcase me-2"></i> View Applications
+                </a>
+                <a routerLink="/job-seeker/profile" class="list-group-item list-group-item-action">
+                  <i class="bi bi-person-circle me-2"></i> Update Profile
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

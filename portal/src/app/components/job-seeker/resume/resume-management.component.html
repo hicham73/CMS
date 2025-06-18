@@ -1,0 +1,250 @@
+<div class="resume-management-container">
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h2>Resume Management</h2>
+      <button class="btn btn-primary" (click)="openResumeForm()">Add New Resume</button>
+    </div>
+    <div class="card-body">
+      <div *ngIf="resumes.length > 0">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Last Updated</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let resume of resumes">
+                <td>{{ resume.title }}</td>
+                <td>{{ resume.updatedAt | date:'shortDate' }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{'bg-success': resume.isActive, 'bg-secondary': !resume.isActive}">
+                    {{ resume.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-primary" (click)="editResume(resume)">Edit</button>
+                    <button class="btn btn-sm btn-outline-secondary" (click)="toggleResumeStatus(resume)">
+                      {{ resume.isActive ? 'Deactivate' : 'Activate' }}
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteResume(resume.id!)">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div *ngIf="resumes.length === 0 && !showResumeForm" class="text-center p-4">
+        <p>You don't have any resumes yet.</p>
+        <button class="btn btn-primary" (click)="openResumeForm()">Create Your First Resume</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume Form -->
+  <div *ngIf="showResumeForm" class="card">
+    <div class="card-header">
+      <h3>{{ editMode ? 'Edit Resume' : 'Add New Resume' }}</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label for="title">Resume Title</label>
+          <input 
+            type="text" 
+            id="title" 
+            formControlName="title" 
+            class="form-control"
+            [ngClass]="{'is-invalid': resumeForm.get('title')?.invalid && resumeForm.get('title')?.touched}">
+          <div *ngIf="resumeForm.get('title')?.invalid && resumeForm.get('title')?.touched" class="invalid-feedback">
+            Resume title is required
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="objective">Career Objective</label>
+          <textarea 
+            id="objective" 
+            formControlName="objective" 
+            class="form-control" 
+            rows="3"></textarea>
+        </div>
+
+        <h4 class="mt-4">Education</h4>
+        <div formArrayName="education">
+          <div *ngFor="let edu of educationControls; let i = index" [formGroupName]="i" class="card mb-3 p-3">
+            <div class="d-flex justify-content-between">
+              <h5>Education #{{ i + 1 }}</h5>
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeEducation(i)">Remove</button>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'institution' + i">Institution</label>
+                  <input 
+                    type="text" 
+                    [id]="'institution' + i" 
+                    formControlName="institution" 
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'degree' + i">Degree</label>
+                  <input 
+                    type="text" 
+                    [id]="'degree' + i" 
+                    formControlName="degree" 
+                    class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'startDate' + i">Start Date</label>
+                  <input 
+                    type="date" 
+                    [id]="'startDate' + i" 
+                    formControlName="startDate" 
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'endDate' + i">End Date</label>
+                  <input 
+                    type="date" 
+                    [id]="'endDate' + i" 
+                    formControlName="endDate" 
+                    class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-primary mb-3" (click)="addEducation()">
+            Add Education
+          </button>
+        </div>
+
+        <h4 class="mt-4">Work Experience</h4>
+        <div formArrayName="experience">
+          <div *ngFor="let exp of experienceControls; let i = index" [formGroupName]="i" class="card mb-3 p-3">
+            <div class="d-flex justify-content-between">
+              <h5>Experience #{{ i + 1 }}</h5>
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeExperience(i)">Remove</button>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'company' + i">Company</label>
+                  <input 
+                    type="text" 
+                    [id]="'company' + i" 
+                    formControlName="company" 
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'position' + i">Position</label>
+                  <input 
+                    type="text" 
+                    [id]="'position' + i" 
+                    formControlName="position" 
+                    class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'expStartDate' + i">Start Date</label>
+                  <input 
+                    type="date" 
+                    [id]="'expStartDate' + i" 
+                    formControlName="startDate" 
+                    class="form-control">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label [for]="'expEndDate' + i">End Date</label>
+                  <input 
+                    type="date" 
+                    [id]="'expEndDate' + i" 
+                    formControlName="endDate" 
+                    class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <label [for]="'description' + i">Description</label>
+              <textarea 
+                [id]="'description' + i" 
+                formControlName="description" 
+                class="form-control" 
+                rows="3"></textarea>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-primary mb-3" (click)="addExperience()">
+            Add Experience
+          </button>
+        </div>
+
+        <h4 class="mt-4">Skills</h4>
+        <div formArrayName="skills">
+          <div *ngFor="let skill of skillsControls; let i = index" [formGroupName]="i" class="row mb-2">
+            <div class="col-md-5">
+              <div class="form-group">
+                <input 
+                  type="text" 
+                  formControlName="name" 
+                  class="form-control"
+                  placeholder="Skill name">
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="form-group">
+                <select formControlName="level" class="form-control" title="Skill proficiency level" aria-label="Skill proficiency level">
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                  <option value="expert">Expert</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-sm btn-danger" (click)="removeSkill(i)">Remove</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-primary mb-3" (click)="addSkill()">
+            Add Skill
+          </button>
+        </div>
+
+        <div class="form-group mt-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="isActive" formControlName="isActive">
+            <label class="form-check-label" for="isActive">
+              Set as active resume (visible to employers)
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group mt-4 d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" (click)="cancelForm()">Cancel</button>
+          <button type="submit" class="btn btn-primary" [disabled]="resumeForm.invalid">
+            {{ editMode ? 'Update Resume' : 'Save Resume' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,293 @@
+<div class="profile-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Account & Profile Management</h2>
+    </div>
+    <div class="card-body">
+      <!-- Tab Navigation -->
+      <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'profile'" (click)="setActiveTab('profile')">Profile Information</a>
+        </li>
+        <li class="nav-item" *ngIf="isJobSeeker">
+          <a class="nav-link" [class.active]="activeTab === 'accessibility'" (click)="setActiveTab('accessibility')">Accessibility Preferences</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'security'" (click)="setActiveTab('security')">Security</a>
+        </li>
+      </ul>
+
+      <!-- Profile Tab -->
+      <div *ngIf="activeTab === 'profile'">
+        <form [formGroup]="profileForm" (ngSubmit)="onProfileSubmit()">
+          <h3>Personal Information</h3>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input 
+                  type="text" 
+                  id="firstName" 
+                  formControlName="firstName" 
+                  class="form-control"
+                  [ngClass]="{'is-invalid': profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched}">
+                <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="invalid-feedback">
+                  First name is required
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input 
+                  type="text" 
+                  id="lastName" 
+                  formControlName="lastName" 
+                  class="form-control"
+                  [ngClass]="{'is-invalid': profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched}">
+                <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="invalid-feedback">
+                  Last name is required
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email" 
+              class="form-control"
+              [ngClass]="{'is-invalid': profileForm.get('email')?.invalid && profileForm.get('email')?.touched}">
+            <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="invalid-feedback">
+              <span *ngIf="profileForm.get('email')?.errors?.['required']">Email is required</span>
+              <span *ngIf="profileForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+            </div>
+          </div>
+
+          <!-- Employer-specific fields -->
+          <ng-container *ngIf="isEmployer">
+            <h3 class="mt-4">Company Information</h3>
+            
+            <div class="form-group">
+              <label for="companyName">Company Name</label>
+              <input 
+                type="text" 
+                id="companyName" 
+                formControlName="companyName" 
+                class="form-control"
+                [ngClass]="{'is-invalid': profileForm.get('companyName')?.invalid && profileForm.get('companyName')?.touched}">
+              <div *ngIf="profileForm.get('companyName')?.invalid && profileForm.get('companyName')?.touched" class="invalid-feedback">
+                Company name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="industry">Industry</label>
+              <input 
+                type="text" 
+                id="industry" 
+                formControlName="industry" 
+                class="form-control"
+                [ngClass]="{'is-invalid': profileForm.get('industry')?.invalid && profileForm.get('industry')?.touched}">
+              <div *ngIf="profileForm.get('industry')?.invalid && profileForm.get('industry')?.touched" class="invalid-feedback">
+                Industry is required
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Job Seeker-specific fields -->
+          <ng-container *ngIf="isJobSeeker">
+            <h3 class="mt-4">Additional Information</h3>
+            
+            <div class="form-group">
+              <label for="education">Highest Education Level</label>
+              <select id="education" formControlName="education" class="form-control">
+                <option value="">-- Select Education Level --</option>
+                <option value="High School">High School</option>
+                <option value="Some College">Some College</option>
+                <option value="Associate's Degree">Associate's Degree</option>
+                <option value="Bachelor's Degree">Bachelor's Degree</option>
+                <option value="Master's Degree">Master's Degree</option>
+                <option value="Doctorate">Doctorate</option>
+                <option value="Trade School">Trade School</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="employmentStatus">Current Employment Status</label>
+              <select id="employmentStatus" formControlName="employmentStatus" class="form-control">
+                <option value="">-- Select Employment Status --</option>
+                <option value="Employed Full-Time">Employed Full-Time</option>
+                <option value="Employed Part-Time">Employed Part-Time</option>
+                <option value="Self-Employed">Self-Employed</option>
+                <option value="Unemployed">Unemployed</option>
+                <option value="Student">Student</option>
+                <option value="Retired">Retired</option>
+              </select>
+            </div>
+
+            <div class="form-group form-check">
+              <input type="checkbox" id="isVeteran" formControlName="isVeteran" class="form-check-input">
+              <label class="form-check-label" for="isVeteran">I am a veteran</label>
+            </div>
+
+            <div class="form-group form-check">
+              <input type="checkbox" id="isTradeProgramParticipant" formControlName="isTradeProgramParticipant" class="form-check-input">
+              <label class="form-check-label" for="isTradeProgramParticipant">I am a trade program participant</label>
+            </div>
+          </ng-container>
+
+          <!-- Success/Error Messages -->
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group mt-4">
+            <button 
+              type="submit" 
+              class="btn btn-primary" 
+              [disabled]="profileForm.invalid || isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Accessibility Tab (Job Seekers Only) -->
+      <div *ngIf="activeTab === 'accessibility' && isJobSeeker">
+        <form [formGroup]="accessibilityForm" (ngSubmit)="onAccessibilitySubmit()">
+          <h3>Accessibility Preferences</h3>
+          <p class="text-muted">Customize your experience to meet your accessibility needs.</p>
+          
+          <div class="form-group form-check">
+            <input type="checkbox" id="highContrast" formControlName="highContrast" class="form-check-input">
+            <label class="form-check-label" for="highContrast">High Contrast Mode</label>
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" id="largeFont" formControlName="largeFont" class="form-check-input">
+            <label class="form-check-label" for="largeFont">Large Font Size</label>
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" id="screenReader" formControlName="screenReader" class="form-check-input">
+            <label class="form-check-label" for="screenReader">Screen Reader Compatible</label>
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" id="keyboardOnly" formControlName="keyboardOnly" class="form-check-input">
+            <label class="form-check-label" for="keyboardOnly">Keyboard Navigation Only</label>
+          </div>
+
+          <div class="form-group">
+            <label for="preferredLanguage">Preferred Language</label>
+            <select id="preferredLanguage" formControlName="preferredLanguage" class="form-control">
+              <option value="English">English</option>
+              <option value="Spanish">Spanish</option>
+              <option value="French">French</option>
+              <option value="Chinese">Chinese</option>
+              <option value="Vietnamese">Vietnamese</option>
+              <option value="Korean">Korean</option>
+              <option value="Arabic">Arabic</option>
+            </select>
+          </div>
+
+          <!-- Success/Error Messages -->
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group mt-4">
+            <button 
+              type="submit" 
+              class="btn btn-primary" 
+              [disabled]="accessibilityForm.invalid || isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
+              Save Preferences
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Security Tab -->
+      <div *ngIf="activeTab === 'security'">
+        <form [formGroup]="securityForm" (ngSubmit)="onSecuritySubmit()">
+          <h3>Change Password</h3>
+          
+          <div class="form-group">
+            <label for="currentPassword">Current Password</label>
+            <input 
+              type="password" 
+              id="currentPassword" 
+              formControlName="currentPassword" 
+              class="form-control"
+              [ngClass]="{'is-invalid': securityForm.get('currentPassword')?.invalid && securityForm.get('currentPassword')?.touched}">
+            <div *ngIf="securityForm.get('currentPassword')?.invalid && securityForm.get('currentPassword')?.touched" class="invalid-feedback">
+              Current password is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="newPassword">New Password</label>
+            <input 
+              type="password" 
+              id="newPassword" 
+              formControlName="newPassword" 
+              class="form-control"
+              [ngClass]="{'is-invalid': securityForm.get('newPassword')?.invalid && securityForm.get('newPassword')?.touched}">
+            <div *ngIf="securityForm.get('newPassword')?.invalid && securityForm.get('newPassword')?.touched" class="invalid-feedback">
+              <span *ngIf="securityForm.get('newPassword')?.errors?.['required']">New password is required</span>
+              <span *ngIf="securityForm.get('newPassword')?.errors?.['minlength']">Password must be at least 8 characters</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              formControlName="confirmPassword" 
+              class="form-control"
+              [ngClass]="{'is-invalid': securityForm.get('confirmPassword')?.invalid && securityForm.get('confirmPassword')?.touched}">
+            <div *ngIf="securityForm.get('confirmPassword')?.invalid && securityForm.get('confirmPassword')?.touched" class="invalid-feedback">
+              <span *ngIf="securityForm.get('confirmPassword')?.errors?.['required']">Please confirm your new password</span>
+              <span *ngIf="securityForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+            </div>
+          </div>
+
+          <!-- Success/Error Messages -->
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-group mt-4">
+            <button 
+              type="submit" 
+              class="btn btn-primary" 
+              [disabled]="securityForm.invalid || isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
+              Change Password
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

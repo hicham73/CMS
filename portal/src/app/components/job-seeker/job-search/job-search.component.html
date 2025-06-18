@@ -1,0 +1,163 @@
+<div class="job-search-container">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2>Job Search</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="keywords">Keywords</label>
+              <input type="text" id="keywords" formControlName="keywords" class="form-control" placeholder="Job title, skills, or company">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="location">Location</label>
+              <input type="text" id="location" formControlName="location" class="form-control" placeholder="City, state, or zip">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="jobType">Job Type</label>
+              <select id="jobType" formControlName="jobType" class="form-control">
+                <option value="">All Types</option>
+                <option value="full-time">Full-Time</option>
+                <option value="part-time">Part-Time</option>
+                <option value="contract">Contract</option>
+                <option value="temporary">Temporary</option>
+                <option value="internship">Internship</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="distance">Distance</label>
+              <select id="distance" formControlName="distance" class="form-control">
+                <option value="10">10 miles</option>
+                <option value="25">25 miles</option>
+                <option value="50">50 miles</option>
+                <option value="100">100 miles</option>
+                <option value="0">Any Distance</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-1 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h3>Filter Results</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <label>Date Posted</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="datePosted" id="dateAny" checked>
+              <label class="form-check-label" for="dateAny">Any time</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="datePosted" id="dateToday">
+              <label class="form-check-label" for="dateToday">Today</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="datePosted" id="dateWeek">
+              <label class="form-check-label" for="dateWeek">Past week</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="datePosted" id="dateMonth">
+              <label class="form-check-label" for="dateMonth">Past month</label>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="form-group">
+            <label>Salary Range</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="salary1">
+              <label class="form-check-label" for="salary1">$0 - $30,000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="salary2">
+              <label class="form-check-label" for="salary2">$30,000 - $60,000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="salary3">
+              <label class="form-check-label" for="salary3">$60,000 - $90,000</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="salary4">
+              <label class="form-check-label" for="salary4">$90,000+</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3>Search Results</h3>
+          <div>
+            <span class="me-2">Sort by:</span>
+            <select class="form-select form-select-sm d-inline-block w-auto" title="Sort results by" aria-label="Sort results by">
+              <option>Relevance</option>
+              <option>Date (newest)</option>
+              <option>Date (oldest)</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-body">
+          <div *ngFor="let job of jobs" class="job-card mb-3">
+            <div class="d-flex justify-content-between">
+              <h4 class="job-title">{{ job.title }}</h4>
+              <button class="btn btn-sm" [ngClass]="isSaved(job.id!) ? 'btn-warning' : 'btn-outline-secondary'" (click)="toggleSaveJob(job.id!)">
+                <i class="bi" [ngClass]="isSaved(job.id!) ? 'bi-bookmark-fill' : 'bi-bookmark'"></i>
+                {{ isSaved(job.id!) ? 'Saved' : 'Save' }}
+              </button>
+            </div>
+            <p class="company-location mb-2">
+              <span class="company">{{ job.location }}</span>
+              <span class="badge ms-2" [ngClass]="{'bg-primary': job.jobType === 'full-time', 'bg-info': job.jobType === 'part-time', 'bg-secondary': job.jobType === 'contract'}">
+                {{ job.jobType | titlecase }}
+              </span>
+            </p>
+            <p class="job-description">{{ job.description }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <small class="text-muted">Posted {{ job.createdAt | date:'mediumDate' }}</small>
+              <a href="#" class="btn btn-primary btn-sm">Apply Now</a>
+            </div>
+          </div>
+
+          <div *ngIf="jobs.length === 0" class="text-center p-4">
+            <p>No jobs found matching your criteria.</p>
+            <p>Try broadening your search or check back later for new opportunities.</p>
+          </div>
+
+          <nav aria-label="Page navigation" *ngIf="jobs.length > 0">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

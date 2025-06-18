@@ -1,0 +1,51 @@
+<div class="locations-container">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h2>Company Locations</h2>
+      <button class="btn btn-primary">Add New Location</button>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Address</th>
+              <th>City, State</th>
+              <th>Contact Person</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let location of locations">
+              <td>{{ location.name }}</td>
+              <td>{{ location.address }}</td>
+              <td>{{ location.city }}, {{ location.state }} {{ location.zipCode }}</td>
+              <td>
+                <div *ngIf="location.contactPerson">
+                  {{ location.contactPerson }}<br>
+                  <small>{{ location.contactEmail }}</small><br>
+                  <small>{{ location.contactPhone }}</small>
+                </div>
+                <div *ngIf="!location.contactPerson">
+                  <small class="text-muted">No contact assigned</small>
+                </div>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-sm btn-outline-primary">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteLocation(location.id!)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div *ngIf="locations.length === 0" class="text-center p-4">
+        <p>No locations found.</p>
+        <button class="btn btn-primary">Add Your First Location</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Register xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/crm/2011/tools/pluginregistration">
+  <Solutions>
+    <Solution Assembly="EY.WorkforceAccelerator.Plugins.dll" Id="7eb71668-0a00-46e2-b8c7-0c01efd27207" IsolationMode="Sandbox" SourceType="Database">
+      <PluginTypes>
+        <clear />
+        <Plugin Description="Plug-in to EY.WorkforceAccelerator.Plugins.WeeklyStaffScheduleDataProvider: RetrieveMultiple of pr_availabilityschedule" FriendlyName="EY.WorkforceAccelerator.Plugins.WeeklyStaffScheduleDataProvider: RetrieveMultiple of pr_availabilityschedule" Name="EY.WorkforceAccelerator.Plugins.WeeklyStaffScheduleDataProvider" Id="742e7682-4e1f-4931-8cd1-e84b50ea9803" TypeName="EY.WorkforceAccelerator.Plugins.WeeklyStaffScheduleDataProvider">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="EY.WorkforceAccelerator.Plugins.WeeklyStaffScheduleDataProvider: RetrieveMultiple of pr_availabilityschedule" Id="73999a23-1c4b-f011-877a-7c1e520ae535" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="EY.WorkforceAccelerator.Plugins.WeeklyStaffScheduleDataProvider:" Mode="Synchronous" PrimaryEntityName="of" Rank="1" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="bfdddc88-124b-f011-8779-000d3a15558f">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+        <Plugin Description="Plug-in to pr_GetStaffAvailability of any Entity" FriendlyName="pr_GetStaffAvailability of any Entity" Name="EY.WorkforceAccelerator.Plugins.StaffAvailability" Id="00000000-0000-0000-0000-000000000000" TypeName="EY.WorkforceAccelerator.Plugins.StaffAvailability">
+          <Steps>
+            <clear />
+            <Step AsyncAutoDelete="false" Name="pr_GetStaffAvailability of any Entity" Description="pr_GetStaffAvailability of any Entity" Id="00000000-0000-0000-0000-000000000000" ImpersonatingUserId="00000000-0000-0000-0000-000000000000" MessageName="pr_GetStaffAvailability" Mode="Synchronous" PrimaryEntityName="none" Rank="1" Stage="PostOutsideTransaction" SupportedDeployment="ServerOnly" MessageEntityId="00000000-0000-0000-0000-000000000000">
+              <Images />
+            </Step>
+          </Steps>
+        </Plugin>
+      </PluginTypes>
+    </Solution>
+  </Solutions>
+  <XamlWorkflows />
+  <DataProviders />
+</Register>

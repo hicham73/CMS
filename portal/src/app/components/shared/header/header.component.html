@@ -1,0 +1,89 @@
+<header class="bg-primary text-white shadow-sm">
+  <div class="container mx-auto px-4 py-3">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center">
+        <a routerLink="/" class="text-xl font-bold">Oregon Workforce Portal</a>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-6">
+        <ng-container *ngIf="!currentUser">
+          <a routerLink="/login" class="hover:text-gray-200">Login</a>
+          <a routerLink="/register" class="hover:text-gray-200">Register</a>
+        </ng-container>
+        
+        <ng-container *ngIf="currentUser && isJobSeeker()">
+          <a routerLink="/job-seeker/dashboard" class="hover:text-gray-200">Dashboard</a>
+          <a routerLink="/job-seeker/jobs" class="hover:text-gray-200">Find Jobs</a>
+          <a routerLink="/job-seeker/resumes" class="hover:text-gray-200">My Resumes</a>
+          <a routerLink="/job-seeker/applications" class="hover:text-gray-200">Applications</a>
+          <a routerLink="/job-seeker/profile" class="hover:text-gray-200">Profile</a>
+        </ng-container>
+        
+        <ng-container *ngIf="currentUser && isEmployer()">
+          <a routerLink="/employer/dashboard" class="hover:text-gray-200">Dashboard</a>
+          <a routerLink="/employer/jobs" class="hover:text-gray-200">Job Postings</a>
+          <a routerLink="/employer/candidates" class="hover:text-gray-200">Candidates</a>
+          <a routerLink="/employer/locations" class="hover:text-gray-200">Locations</a>
+          <a routerLink="/employer/profile" class="hover:text-gray-200">Company Profile</a>
+        </ng-container>
+        
+        <ng-container *ngIf="currentUser && isStaff()">
+          <a routerLink="/staff/dashboard" class="hover:text-gray-200">Dashboard</a>
+          <a routerLink="/staff/job-seekers" class="hover:text-gray-200">Job Seekers</a>
+          <a routerLink="/staff/employers" class="hover:text-gray-200">Employers</a>
+          <a routerLink="/staff/reports" class="hover:text-gray-200">Reports</a>
+        </ng-container>
+        
+        <ng-container *ngIf="currentUser">
+          <button (click)="logout()" class="hover:text-gray-200">Logout</button>
+        </ng-container>
+      </nav>
+      
+      <!-- Mobile Navigation Button -->
+      <button 
+        (click)="toggleMenu()" 
+        class="md:hidden text-white focus:outline-none"
+        aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Mobile Navigation Menu -->
+    <div *ngIf="isMenuOpen" class="md:hidden mt-3 pb-3">
+      <ng-container *ngIf="!currentUser">
+        <a routerLink="/login" class="block py-2 hover:text-gray-200">Login</a>
+        <a routerLink="/register" class="block py-2 hover:text-gray-200">Register</a>
+      </ng-container>
+      
+      <ng-container *ngIf="currentUser && isJobSeeker()">
+        <a routerLink="/job-seeker/dashboard" class="block py-2 hover:text-gray-200">Dashboard</a>
+        <a routerLink="/job-seeker/jobs" class="block py-2 hover:text-gray-200">Find Jobs</a>
+        <a routerLink="/job-seeker/resumes" class="block py-2 hover:text-gray-200">My Resumes</a>
+        <a routerLink="/job-seeker/applications" class="block py-2 hover:text-gray-200">Applications</a>
+        <a routerLink="/job-seeker/profile" class="block py-2 hover:text-gray-200">Profile</a>
+      </ng-container>
+      
+      <ng-container *ngIf="currentUser && isEmployer()">
+        <a routerLink="/employer/dashboard" class="block py-2 hover:text-gray-200">Dashboard</a>
+        <a routerLink="/employer/jobs" class="block py-2 hover:text-gray-200">Job Postings</a>
+        <a routerLink="/employer/candidates" class="block py-2 hover:text-gray-200">Candidates</a>
+        <a routerLink="/employer/locations" class="block py-2 hover:text-gray-200">Locations</a>
+        <a routerLink="/employer/profile" class="block py-2 hover:text-gray-200">Company Profile</a>
+      </ng-container>
+      
+      <ng-container *ngIf="currentUser && isStaff()">
+        <a routerLink="/staff/dashboard" class="block py-2 hover:text-gray-200">Dashboard</a>
+        <a routerLink="/staff/job-seekers" class="block py-2 hover:text-gray-200">Job Seekers</a>
+        <a routerLink="/staff/employers" class="block py-2 hover:text-gray-200">Employers</a>
+        <a routerLink="/staff/reports" class="block py-2 hover:text-gray-200">Reports</a>
+      </ng-container>
+      
+      <ng-container *ngIf="currentUser">
+        <button (click)="logout()" class="block py-2 w-full text-left hover:text-gray-200">Logout</button>
+      </ng-container>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,19 @@
+.bg-primary {
+  background-color: #0056b3;
+}
+
+a {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+}
+
+button {
+  &:focus {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+}

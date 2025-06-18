@@ -1,0 +1,124 @@
+.register-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 15px;
+}
+
+.card {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  border: none;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  
+  h2 {
+    margin: 0;
+    font-weight: 600;
+    color: #333;
+  }
+}
+
+.card-body {
+  padding: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  
+  label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+}
+
+.btn-primary {
+  padding: 12px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:disabled {
+    opacity: 0.7;
+  }
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.form-control {
+  height: auto;
+  padding: 10px 15px;
+  border-radius: 4px;
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  }
+}
+
+.is-invalid {
+  border-color: #dc3545;
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+  }
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.alert {
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.form-check {
+  padding-left: 1.5rem;
+}
+
+.form-check-input {
+  margin-top: 0.3rem;
+  margin-left: -1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: text-bottom;
+  border: 0.2em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}

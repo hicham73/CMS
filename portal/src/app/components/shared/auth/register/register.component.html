@@ -1,0 +1,165 @@
+<div class="register-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Create an Account</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- User Type Selection -->
+        <div class="form-group">
+          <label for="userType">I am a:</label>
+          <select 
+            id="userType" 
+            formControlName="userType" 
+            class="form-control"
+            (change)="onUserTypeChange()">
+            <option *ngFor="let type of userTypes" [value]="type.value">{{ type.label }}</option>
+          </select>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input 
+                type="text" 
+                id="firstName" 
+                formControlName="firstName" 
+                class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched}">
+              <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="invalid-feedback">
+                First name is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input 
+                type="text" 
+                id="lastName" 
+                formControlName="lastName" 
+                class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched}">
+              <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="invalid-feedback">
+                Last name is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            class="form-control"
+            [ngClass]="{'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}">
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="invalid-feedback">
+            <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password" 
+            class="form-control"
+            [ngClass]="{'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}">
+          <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="invalid-feedback">
+            <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+          </div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword" 
+            class="form-control"
+            [ngClass]="{'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched}">
+          <div *ngIf="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched" class="invalid-feedback">
+            <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+            <span *ngIf="registerForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+          </div>
+        </div>
+
+        <!-- Employer-specific fields -->
+        <ng-container *ngIf="registerForm.get('userType')?.value === 'employer'">
+          <div class="form-group">
+            <label for="companyName">Company Name</label>
+            <input 
+              type="text" 
+              id="companyName" 
+              formControlName="companyName" 
+              class="form-control"
+              [ngClass]="{'is-invalid': registerForm.get('companyName')?.invalid && registerForm.get('companyName')?.touched}">
+            <div *ngIf="registerForm.get('companyName')?.invalid && registerForm.get('companyName')?.touched" class="invalid-feedback">
+              Company name is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="industry">Industry</label>
+            <input 
+              type="text" 
+              id="industry" 
+              formControlName="industry" 
+              class="form-control"
+              [ngClass]="{'is-invalid': registerForm.get('industry')?.invalid && registerForm.get('industry')?.touched}">
+            <div *ngIf="registerForm.get('industry')?.invalid && registerForm.get('industry')?.touched" class="invalid-feedback">
+              Industry is required
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Terms and Conditions -->
+        <div class="form-group form-check">
+          <input 
+            type="checkbox" 
+            id="termsAccepted" 
+            formControlName="termsAccepted" 
+            class="form-check-input"
+            [ngClass]="{'is-invalid': registerForm.get('termsAccepted')?.invalid && registerForm.get('termsAccepted')?.touched}">
+          <label class="form-check-label" for="termsAccepted">
+            I agree to the <a href="/terms" target="_blank">Terms and Conditions</a>
+          </label>
+          <div *ngIf="registerForm.get('termsAccepted')?.invalid && registerForm.get('termsAccepted')?.touched" class="invalid-feedback">
+            You must accept the terms and conditions
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <button 
+            type="submit" 
+            class="btn btn-primary btn-block" 
+            [disabled]="registerForm.invalid || isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1"></span>
+            Register
+          </button>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center mt-3">
+          Already have an account? <a routerLink="/login">Log in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

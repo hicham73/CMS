@@ -1,0 +1,49 @@
+.bg-primary {
+  background-color: #0056b3;
+}
+
+.text-primary {
+  color: #0056b3;
+}
+
+.hover\:text-primary-dark:hover {
+  color: #004494;
+}
+
+.hover\:bg-primary-dark:hover {
+  background-color: #004494;
+}
+
+.focus\:ring-primary:focus {
+  --tw-ring-color: rgba(0, 86, 179, 0.5);
+}
+
+.focus\:border-primary:focus {
+  border-color: #0056b3;
+}
+
+/* Accessibility enhancements */
+:focus {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+/* High contrast mode styles that can be toggled */
+.high-contrast {
+  background-color: #000;
+  color: #fff;
+  
+  input, button {
+    border: 2px solid #fff;
+  }
+}
+
+/* Large text mode */
+.large-text {
+  font-size: 1.25rem;
+  
+  input, button {
+    font-size: 1.25rem;
+    padding: 0.75rem;
+  }
+}
